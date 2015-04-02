@@ -1,6 +1,5 @@
-from flask import Flask, request
+from flask import Flask, request, url_for, render_template
 import time
-from subprocess import call
 import os
 app = Flask(__name__)
 
@@ -16,7 +15,7 @@ Excerpt = 'excerpt: '
 # Fixing layout to post
 Post = Seperator + Layout + 'post' + LB
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/', methods=['POST'])
 def publish_post():
 	nPost = Post
 	nTitle = time.strftime("%Y-%m-%d") + '-Log_' + time.strftime("%B-%d") + '.md'
@@ -64,6 +63,10 @@ def publish_post():
 	os.system('jekyll  build -s ../jekyll -d ../public_html')
 
 	return 'posted'
+
+@app.route('/new', methods=['GET'])
+def new_post():
+	return render_template('new_post.html')
 
 if __name__ == '__main__':
 	app.debug = True
