@@ -1,5 +1,7 @@
 from flask import Flask, request
 import time
+from subprocess import call
+import os
 app = Flask(__name__)
 
 # jekyll post params
@@ -58,9 +60,10 @@ def publish_post():
 	nFile.write(nPost)
 	nFile.close()
 
-	print nPost
+	# Build jekyll site
+	os.system('jekyll  build -s ../jekyll -d ../public_html')
 
-	return nPost
+	return 'posted'
 
 if __name__ == '__main__':
 	app.debug = True
