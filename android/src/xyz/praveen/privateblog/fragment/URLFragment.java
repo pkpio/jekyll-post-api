@@ -40,6 +40,7 @@ public class URLFragment extends Fragment {
 		final Editor editor = settings.edit();
 
 		final EditText urlET = (EditText) rootView.findViewById(R.id.url_text);
+		urlET.setText(settings.getString(Param.PARAM_URL, "http://"));
 		rootView.findViewById(R.id.url_save).setOnClickListener(
 				new OnClickListener() {
 

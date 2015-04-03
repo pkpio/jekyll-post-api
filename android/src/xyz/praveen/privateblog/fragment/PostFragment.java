@@ -16,6 +16,8 @@ import org.apache.http.message.BasicNameValuePair;
 
 import xyz.praveen.privateblog.Param;
 import xyz.praveen.privateblog.R;
+import xyz.praveen.privateblog.Interface.FragmentChanger;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,10 +37,17 @@ public class PostFragment extends Fragment implements OnClickListener {
 	EditText postExcerptET;
 	EditText postContentET;
 	Button postBtn;
+	FragmentChanger fragChanger;
 
 	public static PostFragment newInstance() {
 		PostFragment f = new PostFragment();
 		return f;
+	}
+
+	@Override
+	public void onAttach(Activity a) {
+		super.onAttach(a);
+		fragChanger = (FragmentChanger) a;
 	}
 
 	@Override
@@ -141,11 +150,7 @@ public class PostFragment extends Fragment implements OnClickListener {
 		protected void onPostExecute(Boolean result) {
 			postBtn.setEnabled(true);
 			if (result) {
-				postTitleET.setText("");
-				postCatsET.setText("");
-				postTagsET.setText("");
-				postExcerptET.setText("");
-				postContentET.setText("");
+				fragChanger.startPost();
 			}
 		}
 	}

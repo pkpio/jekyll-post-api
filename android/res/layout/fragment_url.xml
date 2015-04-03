@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:gravity="center_vertical"
         android:inputType="textUri"
-        android:minWidth="200dp"
+        android:minWidth="@dimen/post_view_minwidth"
         android:padding="8dp"
         android:text="http://" />
 
