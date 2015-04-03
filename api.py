@@ -22,27 +22,35 @@ def publish_post():
 
 	# Title
 	try:
+		if not request.form['title']:
+			raise Exception		
 		nPost += Title + request.form['title'] + LB
 		nTitle = time.strftime("%Y-%m-%d") + '-' + request.form['title'].replace(' ', '_') + '.md'
-	except KeyError:
+	except Exception, e:
 		nPost += Title + "Log " + time.strftime("%B-%d") + LB
 
 	# Categories
 	try:
+                if not request.form['cats']:
+                        raise Exception
 		nPost += Category + request.form['cats'] + LB
-	except KeyError:
+	except Exception, e:
 		nPost += Category + 'Log ' + LB
 
 	# Tags
 	try:
+                if not request.form['tags']:
+                        raise Exception
 		nPost += Tags + request.form['tags'] + LB
-	except KeyError:
+	except Exception, e:
 		print 'no tags set'
 
 	# Excerpt
 	try:
+                if not request.form['excerpt']:
+                        raise Exception
 		nPost += Excerpt + request.form['excerpt'] + LB
-	except KeyError:
+	except Exception, e:
 		nPost += Excerpt + 'Log for ' + time.strftime("%d-%m-%Y") + LB
 
 	# Close header section
@@ -50,8 +58,10 @@ def publish_post():
 
 	# Content
 	try:
+                if not request.form['content']:
+                        raise Exception
 		nPost += request.form['content'] + LB
-	except KeyError:
+	except Exception, e:
 		return 'No content sent. Aborted!'
 
 	# Write to new post file
