@@ -1,6 +1,5 @@
 from flask import Flask, request, url_for, render_template
-import time
-import os
+import time, os
 app = Flask(__name__)
 
 # jekyll post params
@@ -11,6 +10,7 @@ Title = 'title: '
 Category = 'categories: '
 Tags = 'tags: '
 Excerpt = 'excerpt: '
+Fpath = '../jekyll/_posts/'
 
 # Fixing layout to post
 Post = Seperator + Layout + 'post' + LB
@@ -18,16 +18,28 @@ Post = Seperator + Layout + 'post' + LB
 @app.route('/', methods=['POST'])
 def publish_post():
 	nPost = Post
-	nTitle = time.strftime("%Y-%m-%d") + '-Log_' + time.strftime("%B-%d") + '.md'
+	nFname = time.strftime("%Y-%m-%d") + '-Log_' + time.strftime("%B-%d")
 
 	# Title
 	try:
 		if not request.form['title']:
 			raise Exception		
 		nPost += Title + request.form['title'] + LB
-		nTitle = time.strftime("%Y-%m-%d") + '-' + request.form['title'].replace(' ', '_') + '.md'
+		nFname = time.strftime("%Y-%m-%d") + '-' + request.form['title']
 	except Exception, e:
 		nPost += Title + "Log " + time.strftime("%B-%d") + LB
+
+	# File name
+	nFname = Fpath + nFname.replace(' ','_')
+	i = 0
+	while True:
+		if not os.path.exists(nFname + '.md'):
+			nFname = nFname + '.md'
+			break
+		else:
+			i += 1; nFname += str(i)
+			print nFname
+			print str(i)
 
 	# Categories
 	try:
@@ -65,7 +77,7 @@ def publish_post():
 		return 'No content sent. Aborted!'
 
 	# Write to new post file
-	nFile = open('../jekyll/_posts/' + nTitle, 'w')
+	nFile = open(nFname, 'w')
 	nFile.write(nPost)
 	nFile.close()
 
