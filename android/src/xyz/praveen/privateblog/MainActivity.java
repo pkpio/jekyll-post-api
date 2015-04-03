@@ -3,15 +3,15 @@ package xyz.praveen.privateblog;
 import xyz.praveen.privateblog.Interface.FragmentChanger;
 import xyz.praveen.privateblog.fragment.PostFragment;
 import xyz.praveen.privateblog.fragment.URLFragment;
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends Activity implements FragmentChanger {
+public class MainActivity extends FragmentActivity implements FragmentChanger {
 	final int FRAG_URL = 0;
 	final int FRAG_POST = 1;
 	final int FRAG_COUNT = 2;
@@ -72,7 +72,7 @@ public class MainActivity extends Activity implements FragmentChanger {
 	 *            Animation type
 	 */
 	public void setFragment(int fragChoice, int animation) {
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
 		// Set animation
 		switch (animation) {

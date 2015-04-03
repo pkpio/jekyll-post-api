@@ -8,9 +8,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="xyz.praveen.privateblog.MainActivity" >
 
-    <fragment
+    <LinearLayout
         android:id="@+id/content_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+    </LinearLayout>
 
 </RelativeLayout>
