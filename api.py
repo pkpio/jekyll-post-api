@@ -67,10 +67,7 @@ def publish_post():
 		if not request.form['content']:
                         return 'No content sent. Aborted!'
 		tContent = request.form['content']
-		if len(tContent) > 149:
-			nPost += Excerpt + tContent[0:148] + '...' + LB
-		else
-			nPost += Excerpt + tContent + LB
+		nPost += Excerpt + (request.form['content'])[0:148] + '...' + LB
 
 	# Close header section
 	nPost += LB + Seperator + LB
