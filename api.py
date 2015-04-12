@@ -63,7 +63,14 @@ def publish_post():
                         raise Exception
 		nPost += Excerpt + request.form['excerpt'] + LB
 	except Exception, e:
-		nPost += Excerpt + 'Log for ' + time.strftime("%d-%m-%Y") + LB
+		# Take excerpt as first 150 chars in post
+		if not request.form['content']:
+                        return 'No content sent. Aborted!'
+		tContent = request.form['content']
+		if len(tContent) > 149:
+			nPost += Excerpt + tContent[0:148] + '...' + LB
+		else
+			nPost += Excerpt + tContent + LB
 
 	# Close header section
 	nPost += LB + Seperator + LB
